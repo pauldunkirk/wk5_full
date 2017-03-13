@@ -1,7 +1,8 @@
+
 var router = require('express').Router();
 var pg = require('pg');
 var config = {
-  database: 'phi-tasks',
+  database: 'phi',
   host: 'localhost',
   port: 5432,
   max: 10,
@@ -9,22 +10,18 @@ var config = {
 };
 var pool = new pg.Pool(config);
 
-  // sample GET request
-
   router.get('/', function(req, res) {
-  console.log('hit my get all tasks route');
+  console.log('hit my get all emps route');
   pool.connect(function(err, client, done) {
     if(err){
       console.log(err);
       res.sendStatus(500);
     }else{
-      // SELECT * FROM task;
-      client.query('<sample-database-query>;', function(err, result) {
-        done(); // close the connection db
-
+      client.query('SELECT * FROM emp;', function(err, result) {
+        done();
         if(err){
           console.log(err);
-          res.sendStatus(500); // the world exploded
+          res.sendStatus(500);
         }else{
           console.log(result.rows);
           res.status(200).send(result.rows);
@@ -33,5 +30,57 @@ var pool = new pg.Pool(config);
     }
   });
 });
+
+
+// create a new task in the db
+router.post('/', function(req, res) {
+  console.log('hit post route');
+  console.log('here is the body ->', req.body);
+  var empObject = req.body;
+  pool.connect(function(err, client, done) {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    }else{
+      client.query('INSERT INTO emp (firstname, lastname, idnumber, title, salary) VALUES ($1, $2, $3, $4, $5);',
+        [empObject.firstname, empObject.lastname, empObject.idnumber, empObject.title, empObject.salary], function(err, result) {
+          done();
+          if(err){
+            console.log(err);
+            res.sendStatus(500);
+          }else{
+            res.sendStatus(201);
+          }
+      });
+    }
+  });
+});
+
+
+router.delete('/:id', function(req, res) {
+  var empToDeleteId = req.params.id;
+  console.log('hit delete route');
+  console.log('here is the id to delete ->', empToDeleteId);
+  pool.connect(function(err, client, done) {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    }else{
+      client.query('DELETE FROM emp WHERE id=$1;',
+        [empToDeleteId], function(err, result) {
+          done();
+          if(err){
+            console.log(err);
+            res.sendStatus(500);
+          }else{
+            res.sendStatus(200);
+          }
+      });
+    }
+  });
+});
+
+
+
 
 module.exports = router;

@@ -1,4 +1,58 @@
 <body ng-controller="HomeController">
-  <h2>This is the blank home-view.html file</h2>
-  {{home.testMessage}}
+  <form class="header">
+  <input  ng-model="home.newEmp.firstname" placeholder="First Name">
+  <input  ng-model="home.newEmp.lastname" placeholder="Last Name">
+  <input  ng-model="home.newEmp.idnumber" placeholder="ID Number">
+  <input  ng-model="home.newEmp.title"  placeholder="Title">
+  <input  ng-model="home.newEmp.salary" placeholder="Annual Salary">
+  <button ng-click="home.addEmp()" class="btn-primary" type="button" name="button" id="submit">Enter Employee Info</button>
+  </form>
+  <!-- {{home.newEmp}} -->
+<div class="header">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Annual Salary</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="emp in home.empList.list">
+                    <td>{{emp.firstname}}</td>
+                    <td>{{emp.lastname}}</td>
+                    <td>{{emp.idnumber}}</td>
+                    <td>{{emp.title}}</td>
+                    <td>{{emp.salary}}</td>
+                    <td><button ng-click="home.deleteEmp(emp.id)" class="btn-danger" id="submit">Delete</button></td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+</div>
+
+
+  <div class="header">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Monthly Salary Expenditures</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{home.totalSalary}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        </div>
+
+
 </body>
