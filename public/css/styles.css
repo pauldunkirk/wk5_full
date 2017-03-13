@@ -85,8 +85,8 @@ input {
     /*float: none;*/
     border-collapse: separate;
     /*empty-cells: show;*/
-    height: 15em;
-    overflow: auto;
+    /*height: 15em;
+    overflow: auto;*/
 }
 
 td {
