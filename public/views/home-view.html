@@ -28,7 +28,6 @@
                     <td>{{emp.title}}</td>
                     <td>{{emp.salary}}</td>
                     <td><button ng-click="home.deleteEmp(emp.id)" class="btn-danger" id="submit">Delete</button></td>
-
                 </tr>
 
             </tbody>
@@ -46,7 +45,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{home.totalSalary}}</td>
+                    <td>{{home.empSalary.list[0].sum}}</td>
                 </tr>
             </tbody>
         </table>

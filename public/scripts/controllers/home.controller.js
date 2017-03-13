@@ -3,6 +3,7 @@ myApp.controller('HomeController', ['DataFactory', function(DataFactory) {
     var self = this;
 
     self.empList = DataFactory.allEmps;
+    self.empSalary = DataFactory.empSalary;
 
     self.newEmp = {};
     self.addEmp = function() {
@@ -12,13 +13,15 @@ myApp.controller('HomeController', ['DataFactory', function(DataFactory) {
     self.deleteEmp = function(empId) {
         DataFactory.deleteEmp(empId);
     };
+    
 
+console.log(self.empSalary);
     // self.empSalary = {};
     // self.addEmp = function() {
     //     DataFactory.addEmp(self.empSalary);
     // };
     //
-    // 
+    //
     // self.totalSalary = self.empList.list.salary;
     // console.log(self.totalSalary);
 

@@ -31,6 +31,27 @@ var pool = new pg.Pool(config);
   });
 });
 
+router.get('/sum', function(req, res) {
+console.log('hit my get sum route');
+pool.connect(function(err, client, done) {
+  if(err){
+    console.log(err);
+    res.sendStatus(500);
+  }else{
+    client.query('SELECT SUM(salary) FROM emp;', function(err, result) {
+      done();
+      if(err){
+        console.log(err);
+        res.sendStatus(500);
+      }else{
+        console.log(result.rows);
+        res.status(200).send(result.rows);
+      }
+    });
+  }
+});
+});
+
 
 // create a new task in the db
 router.post('/', function(req, res) {

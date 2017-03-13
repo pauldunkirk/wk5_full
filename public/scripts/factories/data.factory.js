@@ -3,7 +3,7 @@ myApp.factory('DataFactory', ['$http', function($http) {
 
     var factoryEmps = { list: [] };
     var empObject = {};
-    // var empSalary = {};
+    var empSalary = {};
 
     getEmps();
 
@@ -17,9 +17,25 @@ myApp.factory('DataFactory', ['$http', function($http) {
             // factoryEmps = response.data; //factoryTasks is object with list proprty that is array from database
             factoryEmps.list = response.data;
             console.log('factoryEmps is: ', factoryEmps);
-            // getEmpSalary();
+            getSum();
         });
     }
+
+    getSum();
+
+    function getSum() {
+        $http({
+            method: 'GET',
+            url: '/routes/sum'
+        }).then(function(response) {
+            console.log('response from factory', response); //response is object, .data is array
+            console.log('response.data from factory', response.data); //long array
+            // factoryEmps = response.data; //factoryTasks is object with list proprty that is array from database
+            empSalary.list = response.data;
+            console.log('factoryEmps is: ', empSalary);
+        });
+    }
+
 
     function deleteEmp(empId) {
         $http({
@@ -27,7 +43,7 @@ myApp.factory('DataFactory', ['$http', function($http) {
             url: '/routes/' + empId
         }).then(function(response) {
             getEmps();
-            // getEmpSalary();
+            getSum();
         });
     }
 
@@ -39,26 +55,14 @@ myApp.factory('DataFactory', ['$http', function($http) {
         }).then(function(response) {
             console.log('emp factory addEmp has been hit');
             getEmps();
-            // getEmpSalary();
+            getSum();
         });
     }
 
-    // getEmpSalary();
-    //   function getEmpSalary() {
-    //     $http({
-    //       method: 'GET',
-    //       url: '/routes'
-    //     }).then(function(response) {
-    //       console.log('response from factory',  response); //response is object, .data is array
-    //       console.log('response.data from factory', response.data); //long array
-    //       // factoryEmps = response.data; //factoryTasks is object with list proprty that is array from database
-    //       empSalary.salary = response.data.salary;
-    //       console.log('factoryEmps is: ', empSalary);
-    //     });
-    //   }
 
 
     return {
+        empSalary: empSalary,
         allEmps: factoryEmps,
         deleteEmp: deleteEmp,
         addEmp: addEmp
