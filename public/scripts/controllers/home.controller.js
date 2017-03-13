@@ -8,12 +8,13 @@ myApp.controller('HomeController', ['DataFactory', function(DataFactory) {
     self.newEmp = {};
     self.addEmp = function() {
         DataFactory.addEmp(self.newEmp);
+        self.newEmp = {};
     };
 
     self.deleteEmp = function(empId) {
         DataFactory.deleteEmp(empId);
     };
-    
+
 
 console.log(self.empSalary);
     // self.empSalary = {};
