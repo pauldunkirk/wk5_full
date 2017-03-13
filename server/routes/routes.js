@@ -38,7 +38,7 @@ pool.connect(function(err, client, done) {
     console.log(err);
     res.sendStatus(500);
   }else{
-    client.query('SELECT SUM(salary) FROM emp;', function(err, result) {
+    client.query('SELECT round(SUM(salary)/12) FROM emp;', function(err, result) {
       done();
       if(err){
         console.log(err);

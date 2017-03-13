@@ -8,3 +8,6 @@ INSERT INTO emp (firstname, lastname, idnumber, title, salary) VALUES ('Paul', '
 
 SELECT *
 FROM emp;
+
+SELECT round(SUM(salary)/12)
+FROM emp;
